@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.5.2)
 project(flang)
+include_directories(/usr/local/opt/llvm/include)
+link_directories(/usr/local/opt/llvm/lib/)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 set(SOURCES main.cpp Parser.cpp Parser.h Lexer.cpp Lexer.h)
 add_executable(flang ${SOURCES})
+target_link_libraries(flang libLLVM.dylib)

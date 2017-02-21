@@ -21,8 +21,14 @@ int Lexer::getToken() {
         while(isalnum(lastchar = getchar())){
             identifier += lastchar;
         }
-        if(identifier == "def") return tok_def;
-        if(identifier == "extern") return tok_extern;
+        if(identifier == "def") {
+            setToken(tok_def);
+            return tok_def;
+        }
+        if(identifier == "extern"){
+            setToken(tok_extern);
+            return tok_extern;
+        }
         setToken(tok_identifier);
         return tok_identifier;
     }
