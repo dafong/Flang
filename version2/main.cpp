@@ -120,14 +120,19 @@ static PrototypeAST *ParsePrototype(Lexer *l){
     if(l->curToken != '('){
         ErrorP("Expect '(' in prototype");
     }
-
+    l->getToken(); //eat (
     std::vector<std::string> argNames;
-    while(l->getToken() == tok_identifier)
+    while(l->curToken == tok_identifier) {
         argNames.push_back(l->identifier);
+        l->getToken();//eat param
+        if(l->curToken == ',')
+            l->getToken();// eat ','
+    }
+
     if(l->curToken != ')')
         return ErrorP("Expect ')' in prototype");
 
-    l->getToken();
+    l->getToken();//eat )
     return new PrototypeAST(funcName,argNames);
 }
 
